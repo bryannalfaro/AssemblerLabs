@@ -140,7 +140,7 @@ salida:
 .data
 .align 2
 bienvenida:  .asciz "Bienvenido al programa de laboratorio.\nPorfavor escoga una de las siguientes opciones:"
-opcion1:     .asciz "1.Ingresar las notas de los 6 cursos asignados este semestre"
+opcion1:     .asciz "1.Ingresar las notas de los 6 cursos asignados este semestre\nPorfavor ingrese datos enteros y sin espacios. Gracias."
 opcion2:     .asciz "2.Calcular el promedio del semestre"
 opcion3:     .asciz "3.Ingresar su nombre (Porfavor sin espacios y maximo de 10 letras)"
 opcion4:     .asciz "4.Obtener su nombre en mayuscula"
@@ -156,8 +156,6 @@ contadorNotas:
 	.word 6
 	
 /*ESTO FUE PARA PRUEBAS DE QUE SI INGRESA A LA ETIQUETA */
-estas1:            .asciz "Estas en 1"
-estas2:            .asciz "Estas en 2"
 estas3:            .asciz "Estas en 3"
 estas4:            .asciz "Estas en 4"
 
