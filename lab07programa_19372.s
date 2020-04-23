@@ -108,7 +108,7 @@ tarea2:
 		sub r1, r1, r4
 		add r5, r5, #1
 		cmp r1, #0
-		bne resta
+		bgt resta
 	
 	ldr r0, =promedio
 	mov r1, r5
