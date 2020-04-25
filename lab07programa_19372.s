@@ -3,7 +3,7 @@
 /*LABORATORIO 7 Menu de notas de semestre y despliegue de nombre*/
 /*REFERENCIA: CLASE VIRTUAL Y ARCHIVOS DE CLASE*/
 /*ORGANIZACION DE COMPUTADORAS Y ASSEMBLER*/
-/*https://www.youtube.com/watch?v=voL9JFNx7uA*/
+/*Referencia metodo de division https://www.youtube.com/watch?v=voL9JFNx7uA*/
 
 .text
 .align 2
@@ -120,7 +120,7 @@ tarea2:
 /*ESTO AUN PENDIENTE*/	
 tarea3:
 	
-	ldr r0, =ingresoNombre
+	ldr r0, =ingresoNombre /*Mensaje para ingresar su nombre*/
 	bl puts
 	
 	ldr r0, =formatoNombre  /*Ingreso de nombre*/
@@ -131,25 +131,8 @@ tarea3:
 	ldr r1, =nombreIngreso
 	bl printf
 	
-	mov r6, #10
-	ldr r9, =nombreIngreso
-	recorrido: 
-		ldr r1, [r9]	@valor de datos para imprimir
-		ldr r0,=formatoS
-		bl printf
-		
-		add r9, #1
-	
-		subs r6,#1	@contador
-		bne recorrido	@si no es 0 regresa
-		
-		
-		
-	ldr r0, =espacio
-	bl puts
-	
-	b inicio
-	
+	b inicio             /*regresa a inicio (menu)*/
+
 tarea4:
 	ldr r0, =estas4
 	bl puts
@@ -204,12 +187,12 @@ numeroIngreso: .asciz "Tu numero es: %d\n"
 promedio:   .asciz "Tu promedio es: %d\n"
 ingresoNombre: .asciz "Ingrese su nombre (max 10 caracteres y sin espacio): "
 
-/*Strings no se como*/
+/*Strings formatos e impresiones */
 caracter: .string ""
 
 formatoNombre: .asciz "%s" 
 nombreIngreso: .asciz "          "
 pruebaNombre: .asciz "Name: %s\n"
-espacio :     .asciz "Message"
+pruebaNombre2: .asciz "Names: %s\n"
 	
 	
