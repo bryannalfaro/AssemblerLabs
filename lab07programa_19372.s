@@ -131,6 +131,20 @@ tarea3:
 	ldr r1, =nombreIngreso
 	bl printf
 	
+	mov r6, #10
+	ldr r9, =nombreIngreso
+	recorrido: 
+		ldr r1, [r9]	@valor de datos para imprimir
+		ldr r0,=formatoS
+		bl printf
+		
+		add r9, #1
+	
+		subs r6,#1	@contador
+		bne recorrido	@si no es 0 regresa
+		
+		
+		
 	ldr r0, =espacio
 	bl puts
 	
@@ -185,6 +199,7 @@ b:
 entrada:    .asciz " %d"
 formatoN:	.asciz "%d "
 formato:	.asciz "%d\n"
+formatoS:   .asciz "%c "
 numeroIngreso: .asciz "Tu numero es: %d\n"
 promedio:   .asciz "Tu promedio es: %d\n"
 ingresoNombre: .asciz "Ingrese su nombre (max 10 caracteres y sin espacio): "
@@ -193,7 +208,7 @@ ingresoNombre: .asciz "Ingrese su nombre (max 10 caracteres y sin espacio): "
 caracter: .string ""
 
 formatoNombre: .asciz "%s" 
-nombreIngreso: .space 100
+nombreIngreso: .asciz "          "
 pruebaNombre: .asciz "Name: %s\n"
 espacio :     .asciz "Message"
 	
