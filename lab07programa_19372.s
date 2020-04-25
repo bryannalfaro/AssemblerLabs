@@ -80,7 +80,7 @@ tarea1:
 	mov r4, #0
 	ldr r10, =notas
 	
-	@Impresion del vector
+	/*SE REALIZA LA IMPRESION DEL VECTOR*/
 	imprime:
 		ldr r0,=formato
 		ldr r1,[r10],#4
@@ -194,7 +194,7 @@ opcion3:     .asciz "3.Ingresar su nombre en minuscula (Porfavor sin espacios y 
 opcion4:     .asciz "4.Obtener su nombre en mayuscula"
 salirPrograma:     .asciz "5. Salir del programa"
 
-/*NOTAS*/
+/*SECCION DE NOTAS*/
 ingresoNota:       .asciz "Ingrese nota: "
 notas:
 	.word 0,0,0,0,0,0
@@ -204,18 +204,12 @@ contadorNotas:
 caracterIngreso:   .asciz " %d\n"
 letraIngresada:    .asciz "Tu opcion fue la: %d\n"
 
-	
-/*ESTO FUE PARA PRUEBAS DE QUE SI INGRESA A LA ETIQUETA */
-estas3:            .asciz "Estas en 3"
-estas4:            .asciz "Estas en 4"
-
-
 a:
 	.word 0
 b:
 	.word 0
 
-/*Formatos*/	
+/*FORMATOS DE IMPRESION*/	
 entrada:    .asciz " %d"
 formatoN:	.asciz "%d "
 formato:	.asciz "%d\n"
@@ -225,7 +219,7 @@ numeroIngreso: .asciz "Tu numero es: %d\n"
 promedio:   .asciz "Tu promedio es: %d\n"
 ingresoNombre: .asciz "Ingrese su nombre en minuscula ( Porfavor maximo 10 caracteres y sin espacio): "
 
-/*Strings formatos e impresiones */
+/*FORMATO PARA STRINGS E IMPRESIONES DE LOS MISMOS */
 caracter: .string ""
 
 formatoNombre: .asciz "%s" 
