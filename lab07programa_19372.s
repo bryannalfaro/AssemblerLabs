@@ -131,12 +131,58 @@ tarea3:
 	ldr r1, =nombreIngreso
 	bl printf
 	
+	
+	
 	b inicio             /*regresa a inicio (menu)*/
 
 tarea4:
-	ldr r0, =estas4
+	
+	ldr r4, =nombreIngreso
+	ldr r8, =resultadoMayus
+	mov r5, #10
+	mov r6, #0
+	cambiaCH:
+	
+	@Cargar datos del arreglo caracteres e imprimirlo
+	
+	LDRB  R1,[R4],#1 	@ carga byte [char] de la cadena
+	
+	/*  Cambio a mayusculas   */
+	
+	CMP   R1, #0x60		@ si R1 > 0x60 (hex ascii) 
+	
+	@ CMPGT R1, #0x7B
+	@ SUBLT R1,R1,#0x20	@ Restamos 0x20, minuscula a mayuscula
+	
+	SUBGT R1, R1, #0x20	@ Restamos 0x20, minuscula a mayuscula
+
+	STRB  R1,[R8],#1	@ guardamos char en la posición tomada
+	
+	ADD   R6,#1
+	SUBS  R5,#1
+	CMP   R5,#0
+	BNE   cambiaCH
+	
+	ldr r9, =resultadoMayus
+	
+	mov r10, #10
+	impress:
+	LDR   R0, =formatoS	@ cargamos formato de impresión
+	ldr r1, [r9]
+	BL    printf
+	
+	add r9, #1
+	subs r10, #1
+	bne impress
+	
+	ldr r0, =formatoEspacio
 	bl puts
+	
 	b inicio
+	
+	
+	
+	
 	
 salida:
 	/* salida correcta */
@@ -153,7 +199,7 @@ salida:
 bienvenida:  .asciz "Bienvenido al programa de laboratorio.\nPorfavor escoga una de las siguientes opciones:"
 opcion1:     .asciz "1.Ingresar las notas de los 6 cursos asignados este semestre\nPorfavor ingrese datos enteros y sin espacios. Gracias."
 opcion2:     .asciz "2.Calcular el promedio del semestre"
-opcion3:     .asciz "3.Ingresar su nombre (Porfavor sin espacios y maximo de 10 letras)"
+opcion3:     .asciz "3.Ingresar su nombre en minuscula (Porfavor sin espacios y maximo de 10 letras)"
 opcion4:     .asciz "4.Obtener su nombre en mayuscula"
 salirPrograma:     .asciz "5. Salir del programa"
 
@@ -182,17 +228,19 @@ b:
 entrada:    .asciz " %d"
 formatoN:	.asciz "%d "
 formato:	.asciz "%d\n"
-formatoS:   .asciz "%c "
+formatoS:   .asciz "%c"
+formatoEspacio: .asciz "\n"
 numeroIngreso: .asciz "Tu numero es: %d\n"
 promedio:   .asciz "Tu promedio es: %d\n"
-ingresoNombre: .asciz "Ingrese su nombre (max 10 caracteres y sin espacio): "
+ingresoNombre: .asciz "Ingrese su nombre en minuscula ( Porfavor maximo 10 caracteres y sin espacio): "
 
 /*Strings formatos e impresiones */
 caracter: .string ""
 
 formatoNombre: .asciz "%s" 
 nombreIngreso: .asciz "          "
-pruebaNombre: .asciz "Name: %s\n"
+pruebaNombre: .asciz "Nombre ingresado: %s\n"
 pruebaNombre2: .asciz "Names: %s\n"
+resultadoMayus: .asciz "          "
 	
 	
