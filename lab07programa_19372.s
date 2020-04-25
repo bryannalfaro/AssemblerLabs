@@ -1,9 +1,11 @@
 /*UNIVERSIDAD DEL VALLE DE GUATEMALA*/
 /*BRYANN EDUARDO ALFARO HERNANDEZ 19372*/
 /*LABORATORIO 7 Menu de notas de semestre y despliegue de nombre*/
-/*REFERENCIA: CLASE VIRTUAL Y ARCHIVOS DE CLASE*/
+/*REFERENCIA GENERAL: CLASE VIRTUAL Y ARCHIVOS DE CLASE*/
 /*ORGANIZACION DE COMPUTADORAS Y ASSEMBLER*/
-/*Referencia metodo de division https://www.youtube.com/watch?v=voL9JFNx7uA*/
+/*Referencia metodo de division https://www.youtube.com/watch?v=voL9JFNx7uA */
+/*Referencia para conversion de minuscula a mayuscula> 
+ https://stackoverflow.com/questions/58241651/how-to-convert-lowercase-to-uppercase-in-arm-assembly*/
 
 .text
 .align 2
@@ -116,8 +118,7 @@ tarea2:
 	bl printf
 	
 	b inicio
-
-/*ESTO AUN PENDIENTE*/	
+	
 tarea3:
 	
 	ldr r0, =ingresoNombre /*Mensaje para ingresar su nombre*/
@@ -131,58 +132,48 @@ tarea3:
 	ldr r1, =nombreIngreso
 	bl printf
 	
-	
-	
 	b inicio             /*regresa a inicio (menu)*/
 
 tarea4:
 	
 	ldr r4, =nombreIngreso
 	ldr r8, =resultadoMayus
-	mov r5, #10
+	mov r5, #0
 	mov r6, #0
-	cambiaCH:
 	
-	@Cargar datos del arreglo caracteres e imprimirlo
 	
-	LDRB  R1,[R4],#1 	@ carga byte [char] de la cadena
+	/*SE REALIZA LA CONVERSION A MAYUSCULA*/
+	mayuscula:
+	ldrb  r1,[R4],#1 	/*colocarse en la primera posicion del primer arreglo*/	
+	cmp   r1, #96		/*#0x61 corresponde a 'a' en ASCII y 0x60 a 96 en decimal*/ 
 	
-	/*  Cambio a mayusculas   */
+	subgt r1, r1, #32	/*se le resta 32 para ir a mayuscula*/
+	strb  r1,[r8],#1	/*settear el dato mayuscula en el nuevo*/
 	
-	CMP   R1, #0x60		@ si R1 > 0x60 (hex ascii) 
-	
-	@ CMPGT R1, #0x7B
-	@ SUBLT R1,R1,#0x20	@ Restamos 0x20, minuscula a mayuscula
-	
-	SUBGT R1, R1, #0x20	@ Restamos 0x20, minuscula a mayuscula
-
-	STRB  R1,[R8],#1	@ guardamos char en la posición tomada
-	
-	ADD   R6,#1
-	SUBS  R5,#1
-	CMP   R5,#0
-	BNE   cambiaCH
+	/*Manejo del contador de  setteo*/
+	add  r5,#1
+	cmp   r5,#10
+	blt   mayuscula
 	
 	ldr r9, =resultadoMayus
 	
 	mov r10, #10
+	
+	/*PROCESO DE IMPRESION*/
 	impress:
-	LDR   R0, =formatoS	@ cargamos formato de impresión
+	ldr r0, =formatoS	/*impresion de cada letra*/
 	ldr r1, [r9]
-	BL    printf
+	bl    printf
 	
 	add r9, #1
 	subs r10, #1
 	bne impress
 	
+	/*SALTO DE LINEA PARA ESTILO*/
 	ldr r0, =formatoEspacio
 	bl puts
 	
 	b inicio
-	
-	
-	
-	
 	
 salida:
 	/* salida correcta */
@@ -238,7 +229,7 @@ ingresoNombre: .asciz "Ingrese su nombre en minuscula ( Porfavor maximo 10 carac
 caracter: .string ""
 
 formatoNombre: .asciz "%s" 
-nombreIngreso: .asciz "          "
+nombreIngreso: .asciz "             "
 pruebaNombre: .asciz "Nombre ingresado: %s\n"
 pruebaNombre2: .asciz "Names: %s\n"
 resultadoMayus: .asciz "          "
