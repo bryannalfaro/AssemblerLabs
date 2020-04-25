@@ -3,6 +3,7 @@
 /*LABORATORIO 7 Menu de notas de semestre y despliegue de nombre*/
 /*REFERENCIA: CLASE VIRTUAL Y ARCHIVOS DE CLASE*/
 /*ORGANIZACION DE COMPUTADORAS Y ASSEMBLER*/
+/*https://www.youtube.com/watch?v=voL9JFNx7uA*/
 
 .text
 .align 2
@@ -114,14 +115,25 @@ tarea2:
 	mov r1, r5
 	bl printf
 	
-	
-	
 	b inicio
 
 /*ESTO AUN PENDIENTE*/	
 tarea3:
-	ldr r0, =estas3
+	
+	ldr r0, =ingresoNombre
 	bl puts
+	
+	ldr r0, =formatoNombre  /*Ingreso de nombre*/
+	ldr r1, =nombreIngreso
+	bl scanf
+	
+	ldr r0, =pruebaNombre /*Mostrar que si lo imprima */
+	ldr r1, =nombreIngreso
+	bl printf
+	
+	ldr r0, =espacio
+	bl puts
+	
 	b inicio
 	
 tarea4:
@@ -139,6 +151,8 @@ salida:
 /*SECCION DE DATOS*/
 .data
 .align 2
+
+/*MENU*/
 bienvenida:  .asciz "Bienvenido al programa de laboratorio.\nPorfavor escoga una de las siguientes opciones:"
 opcion1:     .asciz "1.Ingresar las notas de los 6 cursos asignados este semestre\nPorfavor ingrese datos enteros y sin espacios. Gracias."
 opcion2:     .asciz "2.Calcular el promedio del semestre"
@@ -146,32 +160,41 @@ opcion3:     .asciz "3.Ingresar su nombre (Porfavor sin espacios y maximo de 10 
 opcion4:     .asciz "4.Obtener su nombre en mayuscula"
 salirPrograma:     .asciz "5. Salir del programa"
 
-caracterIngreso:   .asciz " %d\n"
-letraIngresada:    .asciz "Tu opcion fue la: %d\n"
+/*NOTAS*/
 ingresoNota:       .asciz "Ingrese nota: "
-
 notas:
 	.word 0,0,0,0,0,0
 contadorNotas:
 	.word 6
 	
+caracterIngreso:   .asciz " %d\n"
+letraIngresada:    .asciz "Tu opcion fue la: %d\n"
+
+	
 /*ESTO FUE PARA PRUEBAS DE QUE SI INGRESA A LA ETIQUETA */
 estas3:            .asciz "Estas en 3"
 estas4:            .asciz "Estas en 4"
+
 
 a:
 	.word 0
 b:
 	.word 0
-	
-entrada:
-	.asciz " %d"
+
+/*Formatos*/	
+entrada:    .asciz " %d"
 formatoN:	.asciz "%d "
 formato:	.asciz "%d\n"
-
 numeroIngreso: .asciz "Tu numero es: %d\n"
-promedio:
-	.asciz "Tu promedio es: %d\n"
+promedio:   .asciz "Tu promedio es: %d\n"
+ingresoNombre: .asciz "Ingrese su nombre (max 10 caracteres y sin espacio): "
 
+/*Strings no se como*/
+caracter: .string ""
+
+formatoNombre: .asciz "%s" 
+nombreIngreso: .space 100
+pruebaNombre: .asciz "Name: %s\n"
+espacio :     .asciz "Message"
 	
 	
